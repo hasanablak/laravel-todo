@@ -7,13 +7,15 @@ interface ITodosRepository
 
 	public function createTodo(array $todo, int $usersQid);
 
-	public function deleteTodo(int $id);
+	public function deleteTodoById(int $id);
 
-	public function updateTodo(int $id, array $todo);
+	public function updateTodoById(int $id, array $todo);
 
 	public function getAllTodos();
 
+	public function getTodosByUserId(int $id);
+
 	public function getTodoById(int $id);
 
-	public function revokeTodoById(int $id);
+	public function restoreTodoById(int $id);
 }

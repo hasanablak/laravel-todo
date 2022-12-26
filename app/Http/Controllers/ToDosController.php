@@ -19,9 +19,9 @@ class TodosController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index($usersQid)
 	{
-		return $this->todo->getAllTodos();
+		return $this->todo->getTodosByUserId($usersQid);
 	}
 
 	/**
@@ -35,6 +35,8 @@ class TodosController extends Controller
 		$usersQid = auth()->user()->is_admin && isset($request->usersQid)
 			? $request->usersQid
 			: auth()->id();
+
+
 		$todo = $this->todo->createTodo($request->only(["title", "is_complated"]), $usersQid);
 		return response($todo);
 	}
@@ -59,7 +61,7 @@ class TodosController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$this->todo->updateTodo($id, $request->all());
+		return $this->todo->updateTodoById($id, $request->all());
 	}
 
 	/**
@@ -70,6 +72,16 @@ class TodosController extends Controller
 	 */
 	public function destroy($id)
 	{
-		$this->todo->deleteTodo($id);
+		$this->todo->deleteTodoById($id);
+	}
+
+	public function restore($id)
+	{
+		$this->todo->restoreTodoById($id);
+	}
+
+	public function trashedTodos()
+	{
+		return $this->todo->getTrashedTodos();
 	}
 }

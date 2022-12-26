@@ -17,24 +17,36 @@ class TodosRepository implements ITodosRepository
 		]);
 	}
 
-	public function deleteTodo(int $id)
+	public function deleteTodoById(int $id)
 	{
-		Todo::softDeleted($id);
+		Todo::query()
+			->where('id', $id)
+			->filterByUserId()
+			->delete();
 	}
 
-	public function updateTodo(int $id, array $todo)
+	public function updateTodoById(int $id, array $todo)
 	{
-		return Todo::where('id', $id)->update($todo);
+		return Todo::query()
+			->where('id', $id)
+			->filterByUserId()
+			->update($todo);
 	}
 
 	public function getAllTodos()
 	{
 		return Todo::query()
-			->where(function ($query) {
-				if (!auth()->user()->is_admin) {
-					return $query->where('usersQid', auth()->id);
-				}
-			})
+			->filterByUserId()
+			->filter()
+			->get();
+	}
+
+	public function getTodosByUserId(int $id)
+	{
+		return Todo::query()
+			->filterByUserId()
+			->filter()
+			->where('usersQid', $id)
 			->get();
 	}
 
@@ -42,23 +54,15 @@ class TodosRepository implements ITodosRepository
 	{
 		return Todo::query()
 			->where('id', $id)
-			->where(function ($query) {
-				if (!auth()->user()->is_admin) {
-					return $query->where('usersQid', auth()->id);
-				}
-			})
+			->filterByUserId()
 			->firstOrFail();
 	}
 
-	public function revokeTodoById(int $id)
+	public function restoreTodoById(int $id)
 	{
-		Todo::query()
+		Todo::onlyTrashed()
 			->where('id', $id)
-			->where(function ($query) {
-				if (!auth()->user()->is_admin) {
-					return $query->where('usersQid', auth()->id);
-				}
-			})
-			->update(["deleted_at", ""]);
+			->filterByUserId()
+			->restore();
 	}
 }
