@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface ITodosRepository
 {
 
-	public function createTodo(array $todo);
+	public function createTodo(array $todo, int $usersQid);
 
 	public function deleteTodo(int $id);
 
@@ -14,4 +14,6 @@ interface ITodosRepository
 	public function getAllTodos();
 
 	public function getTodoById(int $id);
+
+	public function revokeTodoById(int $id);
 }

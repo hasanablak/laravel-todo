@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class ToDo extends Model
+class Todo extends Model
 {
 	use HasFactory, SoftDeletes;
+
+	protected $fillable = ["title", "status", "usersQid"];
 }

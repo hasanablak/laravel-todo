@@ -3,29 +3,33 @@
 namespace App\Repository;
 
 use App\Interfaces\ITodosRepository;
-use App\Models\ToDo;
+use App\Models\Todo;
 
-class ToDosRepository implements ITodosRepository
+class TodosRepository implements ITodosRepository
 {
 
-	public function createTodo(array $todo)
+	public function createTodo(array $todo, int $usersQid)
 	{
-		return ToDo::create($todo);
+
+		return Todo::create([
+			...$todo,
+			"usersQid" => $usersQid
+		]);
 	}
 
 	public function deleteTodo(int $id)
 	{
-		ToDo::softDeleted($id);
+		Todo::softDeleted($id);
 	}
 
 	public function updateTodo(int $id, array $todo)
 	{
-		return ToDo::where('id', $id)->update($todo);
+		return Todo::where('id', $id)->update($todo);
 	}
 
 	public function getAllTodos()
 	{
-		return ToDo::query()
+		return Todo::query()
 			->where(function ($query) {
 				if (!auth()->user()->is_admin) {
 					return $query->where('usersQid', auth()->id);
@@ -36,7 +40,7 @@ class ToDosRepository implements ITodosRepository
 
 	public function getTodoById(int $id)
 	{
-		return ToDo::query()
+		return Todo::query()
 			->where('id', $id)
 			->where(function ($query) {
 				if (!auth()->user()->is_admin) {
@@ -44,5 +48,17 @@ class ToDosRepository implements ITodosRepository
 				}
 			})
 			->firstOrFail();
+	}
+
+	public function revokeTodoById(int $id)
+	{
+		Todo::query()
+			->where('id', $id)
+			->where(function ($query) {
+				if (!auth()->user()->is_admin) {
+					return $query->where('usersQid', auth()->id);
+				}
+			})
+			->update(["deleted_at", ""]);
 	}
 }
