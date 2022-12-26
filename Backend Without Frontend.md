@@ -12,7 +12,7 @@ JWT TOKEN kullanalım
 - Veritabanında kayıtlı bir yönetici kullanıcısı bulunmalıdır. Bu kullanıcı uygulama başladığında yoksa doğrudan eklenmelidir.
 - Kullanıcı oluşturma ve giriş yapma uç noktaları eklenmelidir.
 - ToDo oluşturma, listeleme, düzenleme ve silme uç noktaları eklenmelidir.
-- Yetkilendirme mekanizması eklenmelidir. (Spatie Permission)
+- Yetkilendirme mekanizması eklenmelidir.
 - Yönetici kullanıcısı bütün kullanıcıları listeleyebilir.
 - Eğer kullanıcının rolü yönetici ise istediği kullanıcıya ToDo oluşturabilir ve güncelleyebilir.
 - Eğer kullanıcının rolü yönetici ise aradığı kullanıcının ToDo'larını listeleyebilir ve silebilir.
