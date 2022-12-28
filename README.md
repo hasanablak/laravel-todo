@@ -23,7 +23,7 @@ Bu uyglamanın içerisinde,
 1) Öncelikle bilgisyarınıza bu repositoryi indirmeniz gerekmektedir.
 2) Daha sonra `composer install` diyerek vendor dosyasını indirmelisiniz.
 3) `php artisan migrate` komutu ile tablolarımızı oluşturuyoruz.
-4) `php artisan db:seed` komutu ile tablolarımız içerisine örnek kullanıcılar oluşturuyoruz.
+4) `php artisan db:seed` komutu ile tablolarımız içerisine örnek kayırlarımızı oluşturuyoruz.
 5) `php artisan serve` komutu ile uygulamamızı çalıştıralım.
 
 
