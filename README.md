@@ -14,6 +14,7 @@ Bu uyglamanın içerisinde,
 * migration
 * model relation
 * model scope
+* jwt
 
 örnekleri yer almaktadır.
 
