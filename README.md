@@ -34,6 +34,6 @@ Bu uyglamanın içerisinde,
 
 # Endpointleri nasıl test edebilirim?
 
-Postman üzerinden buradaki bağlantıyı kullanarak endpointleri test edebilirsiniz.
-[Postman](https://www.postman.com/hasanablak/workspace/yukotech-todo/overview)
+Postman üzerinden [buradaki bağlantıyı](https://www.postman.com/hasanablak/workspace/yukotech-todo/overview) kullanarak endpointleri test edebilirsiniz.
+
 
