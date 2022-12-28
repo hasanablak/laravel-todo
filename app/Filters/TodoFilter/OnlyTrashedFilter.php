@@ -2,10 +2,10 @@
 
 namespace App\Filters\TodoFilter;
 
-class TrashedFilter
+class OnlyTrashedFilter
 {
 	public function filter($builder, $value)
 	{
-		return $builder->withTrashed();
+		return $builder->onlyTrashed();
 	}
 }
