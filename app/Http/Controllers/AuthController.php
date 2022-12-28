@@ -5,23 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthLoginRequest;
 use App\Http\Requests\AuthRegisterRequest;
 use App\Http\Resources\AuthResource;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use App\Interfaces\IUsersRepository;
 
 class AuthController extends Controller
 {
+	public $user;
 
-	public function __construct()
+
+	public function __construct(IUsersRepository $user)
 	{
-		$this->middleware('auth:api', ['except' => ['login', 'register']]);
+		$this->user = $user;
 	}
 
 	public function login(AuthLoginRequest $request)
 	{
 		$credentials = $request->only('email', 'password');
 
-		$token = auth('api')->attempt($credentials);
+		$token = $this->user->login($credentials);
 
 		return response(new AuthResource($token), $token ? 200 : 401);
 	}
@@ -29,29 +29,18 @@ class AuthController extends Controller
 
 	public function register(AuthRegisterRequest $request)
 	{
-
-		$user = User::create($request->all());
-
 		return response([
 			'message' => 'User successfully registered',
-			'user' => $user
+			'user' => $this->user->create($request->all())
 		], 201);
 	}
 
 
 	public function logout()
 	{
-		auth()->logout();
-		return response()->json(['message' => 'User successfully signed out']);
-	}
-
-	public function refresh()
-	{
-		return $this->createNewToken(auth()->refresh());
-	}
-
-	public function userProfile()
-	{
-		return response()->json(auth()->user());
+		$this->user->logout();
+		return response([
+			'message' => 'User successfully signed out'
+		]);
 	}
 }
