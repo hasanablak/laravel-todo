@@ -34,12 +34,8 @@ class Todo extends Model
 		});
 	}
 
-	public function scopeIsAdminWithTrashed($query)
+	public function user()
 	{
-		return $query->where(function ($query) {
-			if (auth()->user()->is_admin == 1) {
-				return $query->withTradeshed();
-			}
-		});
+		return $this->hasOne(User::class, "id", "usersQid");
 	}
 }

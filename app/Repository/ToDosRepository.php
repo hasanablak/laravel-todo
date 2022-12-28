@@ -10,7 +10,6 @@ class TodosRepository implements ITodosRepository
 
 	public function createTodo(array $todo, int $usersQid)
 	{
-
 		return Todo::create([
 			...$todo,
 			"usersQid" => $usersQid
@@ -38,15 +37,17 @@ class TodosRepository implements ITodosRepository
 		return Todo::query()
 			->filterByUserId()
 			->filter()
+			->with('user')
 			->get();
 	}
 
 	public function getTodosByUserId(int $id)
 	{
 		return Todo::query()
-			->filterByUserId()
 			->filter()
+			->filterByUserId()
 			->where('usersQid', $id)
+			->with('user')
 			->get();
 	}
 
@@ -55,6 +56,7 @@ class TodosRepository implements ITodosRepository
 		return Todo::query()
 			->where('id', $id)
 			->filterByUserId()
+			->with('user')
 			->firstOrFail();
 	}
 
