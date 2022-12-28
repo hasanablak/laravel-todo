@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TodoCreateRequest;
 use Illuminate\Http\Request;
 use App\Interfaces\ITodosRepository;
+use App\Notifications\AssignedTodoNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TodosController extends Controller
 {
@@ -36,6 +38,7 @@ class TodosController extends Controller
 			? $request->usersQid
 			: auth()->id();
 
+		//	Notification::send(new AssignedTodoNotification($usersQid, auth()->id()));
 
 		$todo = $this->todo->createTodo($request->only(["title", "is_complated"]), $usersQid);
 		return response($todo);
