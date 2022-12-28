@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Facades\Hash;
+use App\Filters\UserFilter\UserFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -24,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
 		'name',
 		'email',
 		'password',
+		'is_admin'
 	];
 
 	/**
@@ -56,10 +59,14 @@ class User extends Authenticatable implements JWTSubject
 
 	protected function password(): Attribute
 	{
-
 		return new Attribute(
 			//get: fn($value) => "",
 			set: fn ($value) => Hash::make($value)
 		);
+	}
+
+	public function scopeFilter(Builder $builder)
+	{
+		return (new UserFilter(request()))->filter($builder);
 	}
 }
