@@ -19,7 +19,7 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::resource("users", UsersController::class)
-	->only(["index", "show", "update"])
+	->only(["index", "show", "update", "store"])
 	->middleware(['auth:api', AdminMiddleware::class]);
 
 Route::resource("users.todos", TodosController::class)

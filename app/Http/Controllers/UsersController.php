@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRegisterRequest;
 use App\Interfaces\IUsersRepository;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,10 @@ class UsersController extends Controller
 	public function update(Request $request)
 	{
 		return response($this->user->updateUserById($request->user, $request->all()));
+	}
+
+	public function store(AuthRegisterRequest $request)
+	{
+		return response($this->user->create($request->only("email", "password", "name", "is_admin")));
 	}
 }
