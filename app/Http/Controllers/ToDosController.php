@@ -50,9 +50,9 @@ class TodosController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show($usersQid, $todosQid)
 	{
-		return response($this->todo->getTodoById($id));
+		return response($this->todo->getTodoById($todosQid));
 	}
 
 	/**
@@ -62,9 +62,9 @@ class TodosController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, $usersQid, $todosQid)
 	{
-		return $this->todo->updateTodoById($id, $request->all());
+		return $this->todo->updateTodoById($todosQid, $request->all());
 	}
 
 	/**
@@ -73,14 +73,14 @@ class TodosController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy($usersQid, $todosQid)
 	{
-		$this->todo->deleteTodoById($id);
+		$this->todo->deleteTodoById($todosQid);
 	}
 
-	public function restore($id)
+	public function restore($usersQid, $todosQid)
 	{
-		$this->todo->restoreTodoById($id);
+		$this->todo->restoreTodoById($todosQid);
 	}
 
 	public function trashedTodos()
