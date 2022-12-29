@@ -13,7 +13,7 @@ class Todo extends Model
 {
 	use HasFactory, SoftDeletes;
 
-	protected $fillable = ["title", "status", "usersQid"];
+	protected $fillable = ["title", "status", "usersQid", "is_complated"];
 
 	public function scopeFilter(Builder $builder)
 	{
