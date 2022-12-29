@@ -38,6 +38,7 @@ class TodosRepository implements ITodosRepository
 			->filterByUserId()
 			->filter()
 			->with('user')
+			->orderBy('id', 'desc')
 			->get();
 	}
 
