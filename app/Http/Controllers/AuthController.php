@@ -29,9 +29,10 @@ class AuthController extends Controller
 
 	public function register(AuthRegisterRequest $request)
 	{
+
 		return response([
 			'message' => 'User successfully registered',
-			'user' => $this->user->create($request->all())
+			'user' => $this->user->create($request->only("email", "name", "password"))
 		], 201);
 	}
 
