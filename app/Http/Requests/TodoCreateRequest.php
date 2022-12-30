@@ -25,21 +25,8 @@ class TodoCreateRequest extends FormRequest
 	 */
 	public function rules()
 	{
-		/**
-		 * usersQid eğer var ise o zaman users tablosundan da kontrol edilmeli
-		 * usersQid eğer var ise auth()->user()->is_admin == 1 olmalı
-		 */
 		return [
-			"title"	=>	"required|string|min:3",
-			"usersQid"	=> function ($attribute, $value, $fail) {
-				if (isset($value)) {
-					if (User::where('id', $value)->count() == 0) {
-						$fail("User veritabanında bulunamadı!");
-					} else if (auth()->user()->is_admin != 1) {
-						$fail("Bu erişimi sadece adminler yapabilir");
-					}
-				}
-			}
+			"title"	=>	"required|string|min:3"
 		];
 	}
 }
