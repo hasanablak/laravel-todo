@@ -32,11 +32,10 @@ class TodosController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(TodoCreateRequest $request)
+	public function store($usersQid, TodoCreateRequest $request)
 	{
-		$usersQid = auth()->user()->is_admin && isset($request->usersQid)
-			? $request->usersQid
-			: auth()->id();
+
+		$usersQid = auth()->user()->is_admin == 1 ? $usersQid : auth()->id();
 
 		//	Notification::send(new AssignedTodoNotification($usersQid, auth()->id()));
 
