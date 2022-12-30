@@ -11,7 +11,6 @@ class UsersRepository implements IUsersRepository
 	public function getAllUsers()
 	{
 		return User::query()
-			->where('id', '!=', auth()->id())
 			->filter()
 			->get();
 	}
