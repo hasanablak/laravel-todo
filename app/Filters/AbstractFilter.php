@@ -25,7 +25,7 @@ abstract class AbstractFilter
 
 	protected function getFilters()
 	{
-		return array_filter($this->request->only(array_keys($this->filters)));
+		return $this->request->only(array_keys($this->filters));
 	}
 
 	protected function resolveFilter($filter)
