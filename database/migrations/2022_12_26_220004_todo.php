@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->id();
 			$table->softDeletes();
 			$table->integer('usersQid')->nullable(false);
-			$table->string('title');
+			$table->text('title');
 			$table->timestamps();
 			$table->integer('is_complated')->nullable(false)->default(0);
 		});
