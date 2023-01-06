@@ -37,7 +37,7 @@ class TodosRepository implements ITodosRepository
 		return Todo::query()
 			->filterByUserId()
 			->filter()
-			->with('user')
+			->with('user:id,email,name')
 			->orderBy('id', 'desc')
 			->get();
 	}
@@ -48,7 +48,9 @@ class TodosRepository implements ITodosRepository
 			->filter()
 			->filterByUserId()
 			->where('usersQid', $id)
-			->with('user')
+			->with(['user' => function ($q) {
+				$q->select('id', 'name', 'email');
+			}])
 			->get();
 	}
 
